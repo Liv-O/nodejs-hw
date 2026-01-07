@@ -32,9 +32,9 @@ app.get('/notes', (req, res) => {
   });
 });
 
-app.get('/notes/:userId', (req, res) => {
-  const { userId } = req.params;
-  res.status(200).json({ message: `Retrieved note with ID: ${userId}` });
+app.get('/notes/:noteId', (req, res) => {
+  const { noteId } = req.params;
+  res.status(200).json({ message: `Retrieved note with ID: ${noteId}` });
 });
 
 app.get('/test-error', () => {
