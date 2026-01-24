@@ -13,17 +13,14 @@ export const getAllNotes = async (req, res) => {
 
   if (search) {
     //значно довший пошук без індексів (шукає навіть по шматочку слова)
-    notesQuery.where({
-      $or: [
-        { title: { $regex: search, $options: 'i' } },
-        { content: { $regex: search, $options: 'i' } },
-      ],
-    });
-    // Пошук за допомогою текстових індексів (шукає по повному слову)
     // notesQuery.where({
-    //   title: { $regex: search, $options: 'i' },
+    //   $or: [
+    //     { title: { $regex: search, $options: 'i' } },
+    //     { content: { $regex: search, $options: 'i' } },
+    //   ],
     // });
-    // notesQuery.where({ $text: { $search: search } });
+    // Пошук за допомогою текстових індексів (шукає по повному слову)
+    notesQuery.where({ $text: { $search: search } });
   }
 
   const [totalNotes, notes] = await Promise.all([

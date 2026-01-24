@@ -3,7 +3,9 @@ import { TAGS } from '../constants/tags.js';
 import { isValidObjectId } from 'mongoose';
 
 const objectIdValidator = (value, helpers) => {
-  return !isValidObjectId(value) ? helpers.message('Invalid id format') : value;
+  return !isValidObjectId(value)
+    ? helpers.message(`Invalid ${value} format`)
+    : value;
 };
 
 export const getAllNotesSchema = {
@@ -44,10 +46,9 @@ export const updateNoteSchema = {
     noteId: Joi.string().custom(objectIdValidator).required(),
   }),
   [Segments.BODY]: Joi.object({
-    title: Joi.string().min(1).required().messages({
+    title: Joi.string().min(1).messages({
       'string.base': 'Title must be a string',
       'string.min': 'Title should have at least {#limit} characters',
-      'any.required': 'Title is required',
     }),
     content: Joi.string().allow('').messages({
       'string.base': 'Content must be a string',
