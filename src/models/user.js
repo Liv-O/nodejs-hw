@@ -21,7 +21,7 @@ userSchema.pre('save', function (next) {
   if (!this.username) {
     this.username = this.email;
   }
-  // next();
+  next();
 });
 
 userSchema.methods.toJSON = function () {
